@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Snake Game</h1>
+        
+        <div class="settings-btn" id="settings-btn">⚙️</div>
+        
+        <div class="settings-panel" id="settings-panel">
+            <h3>Game Settings</h3>
+            <div class="setting">
+                <label for="snake-color">Snake Color:</label>
+                <div class="color-options">
+                    <div class="color-option snake-color selected" data-color="#4CAF50" style="background-color: #4CAF50;"></div>
+                    <div class="color-option snake-color" data-color="#3a86ff" style="background-color: #3a86ff;"></div>
+                    <div class="color-option snake-color" data-color="#ff006e" style="background-color: #ff006e;"></div>
+                    <div class="color-option snake-color" data-color="#ffbe0b" style="background-color: #ffbe0b;"></div>
+                </div>
+            </div>
+            <div class="setting">
+                <label for="food-color">Food Color:</label>
+                <div class="color-options">
+                    <div class="color-option food-color selected" data-color="#fdbb2d" style="background-color: #fdbb2d;"></div>
+                    <div class="color-option food-color" data-color="#ff006e" style="background-color: #ff006e;"></div>
+                    <div class="color-option food-color" data-color="#3a86ff" style="background-color: #3a86ff;"></div>
+                    <div class="color-option food-color" data-color="#8338ec" style="background-color: #8338ec;"></div>
+                </div>
+            </div>
+            <div class="setting">
+                <label for="bg-color">Background Color:</label>
+                <div class="color-options">
+                    <div class="color-option bg-color selected" data-color="#1a2a6c" style="background-color: #1a2a6c;"></div>
+                    <div class="color-option bg-color" data-color="#212837" style="background-color: #212837;"></div>
+                    <div class="color-option bg-color" data-color="#3a0ca3" style="background-color: #3a0ca3;"></div>
+                    <div class="color-option bg-color" data-color="#2b2d42" style="background-color: #2b2d42;"></div>
+                </div>
+            </div>
+            <button id="close-settings">Apply & Close</button>
+        </div>
+        
+        <div class="game-details">
+            <div class="score">Score: <span id="score">0</span></div>
+            <div class="high-score">High Score: <span id="high-score">0</span></div>
+        </div>
+        <div class="play-board"></div>
+        <div class="start-message">Press any arrow key or use the buttons below to start!</div>
+        <div class="controls">
+            <div data-key="ArrowLeft" class="control-btn">⬅️</div>
+            <div class="controls-group">
+                <div data-key="ArrowUp" class="control-btn">⬆️</div>
+                <div data-key="ArrowDown" class="control-btn">⬇️</div>
+            </div>
+            <div data-key="ArrowRight" class="control-btn">➡️</div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
