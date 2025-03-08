@@ -3,63 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game</title>
+    <title>Mrinmoy Banik - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="game-container">
-        <h1>Snake Game</h1>
-        
-        <div class="settings-btn" id="settings-btn">⚙️</div>
-        
-        <div class="settings-panel" id="settings-panel">
-            <h3>Game Settings</h3>
-            <div class="setting">
-                <label for="snake-color">Snake Color:</label>
-                <div class="color-options">
-                    <div class="color-option snake-color selected" data-color="#4CAF50" style="background-color: #4CAF50;"></div>
-                    <div class="color-option snake-color" data-color="#3a86ff" style="background-color: #3a86ff;"></div>
-                    <div class="color-option snake-color" data-color="#ff006e" style="background-color: #ff006e;"></div>
-                    <div class="color-option snake-color" data-color="#ffbe0b" style="background-color: #ffbe0b;"></div>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">MB</div>
+                <ul class="nav-links">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Hi, I'm <span class="highlight">Mrinmoy Banik</span></h1>
+                <h2>Software Developer</h2>
+                <p>I build exceptional digital experiences with a focus on performance and user experience.</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn primary-btn">View My Work</a>
+                    <a href="#contact" class="btn secondary-btn">Contact Me</a>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/mrinmoy2developer" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/your-linkedin" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
-            <div class="setting">
-                <label for="food-color">Food Color:</label>
-                <div class="color-options">
-                    <div class="color-option food-color selected" data-color="#fdbb2d" style="background-color: #fdbb2d;"></div>
-                    <div class="color-option food-color" data-color="#ff006e" style="background-color: #ff006e;"></div>
-                    <div class="color-option food-color" data-color="#3a86ff" style="background-color: #3a86ff;"></div>
-                    <div class="color-option food-color" data-color="#8338ec" style="background-color: #8338ec;"></div>
+            <div class="hero-image">
+                <div class="image-placeholder">
+                    <!-- Replace with your profile image -->
+                    <i class="fas fa-user-circle"></i>
                 </div>
             </div>
-            <div class="setting">
-                <label for="bg-color">Background Color:</label>
-                <div class="color-options">
-                    <div class="color-option bg-color selected" data-color="#1a2a6c" style="background-color: #1a2a6c;"></div>
-                    <div class="color-option bg-color" data-color="#212837" style="background-color: #212837;"></div>
-                    <div class="color-option bg-color" data-color="#3a0ca3" style="background-color: #3a0ca3;"></div>
-                    <div class="color-option bg-color" data-color="#2b2d42" style="background-color: #2b2d42;"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Me</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I am a passionate software developer with a strong foundation in web development and programming. My journey in technology began with a curiosity about how digital solutions can solve real-world problems.</p>
+                    <p>With experience in both frontend and backend technologies, I enjoy creating responsive, user-friendly applications that deliver exceptional experiences. I'm constantly learning and adapting to new technologies to stay at the forefront of the industry.</p>
+                    <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing my knowledge with the developer community.</p>
+                    <div class="resume-link">
+                        <a href="resume.pdf" class="btn primary-btn" target="_blank">Download Resume</a>
+                    </div>
+                </div>
+                <div class="about-details">
+                    <div class="detail-item">
+                        <h3>Education</h3>
+                        <p><strong>Degree in Computer Science</strong></p>
+                        <p>University Name, 20XX-20XX</p>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Experience</h3>
+                        <p><strong>Software Developer</strong></p>
+                        <p>Company Name, 20XX-Present</p>
+                    </div>
                 </div>
             </div>
-            <button id="close-settings">Apply & Close</button>
         </div>
-        
-        <div class="game-details">
-            <div class="score">Score: <span id="score">0</span></div>
-            <div class="high-score">High Score: <span id="high-score">0</span></div>
-        </div>
-        <div class="play-board"></div>
-        <div class="start-message">Press any arrow key or use the buttons below to start!</div>
-        <div class="controls">
-            <div data-key="ArrowLeft" class="control-btn">⬅️</div>
-            <div class="controls-group">
-                <div data-key="ArrowUp" class="control-btn">⬆️</div>
-                <div data-key="ArrowDown" class="control-btn">⬇️</div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>My Skills</h2>
+                <div class="underline"></div>
             </div>
-            <div data-key="ArrowRight" class="control-btn">➡️</div>
+            <div class="skills-content">
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <i class="fab fa-html5"></i>
+                            <p>HTML5</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-css3-alt"></i>
+                            <p>CSS3</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-js"></i>
+                            <p>JavaScript</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-react"></i>
+                            <p>React</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Backend</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <i class="fab fa-node-js"></i>
+                            <p>Node.js</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-database"></i>
+                            <p>SQL</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-python"></i>
+                            <p>Python</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-server"></i>
+                            <p>APIs</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools & Others</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <i class="fab fa-git-alt"></i>
+                            <p>Git</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-docker"></i>
+                            <p>Docker</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-cloud"></i>
+                            <p>AWS</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <p>Responsive Design</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>My Projects</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/600x400" alt="Snake Game">
+                    </div>
+                    <div class="project-content">
+                        <h3>Snake Game</h3>
+                        <p>A classic Snake Game built with HTML, CSS, and JavaScript. Features include customizable colors, responsive design, and touch controls.</p>
+                        <div class="project-tags">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="projects/snake-game/" class="btn small-btn">Live Demo</a>
+                            <a href="https://github.com/mrinmoy2developer/mrinmoy2developer.github.io/tree/main/projects/snake-game" class="btn small-btn secondary-btn">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Add more project cards as needed -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/600x400" alt="Project 2">
+                    </div>
+                    <div class="project-content">
+                        <h3>Project 2</h3>
+                        <p>Description of your second project. Explain what it does, the technologies used, and your role in its development.</p>
+                        <div class="project-tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn small-btn">Live Demo</a>
+                            <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/600x400" alt="Project 3">
+                    </div>
+                    <div class="project-content">
+                        <h3>Project 3</h3>
+                        <p>Description of your third project. Explain what it does, the technologies used, and your role in its development.</p>
+                        <div class="project-tags">
+                            <span>Python</span>
+                            <span>Django</span>
+                            <span>PostgreSQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn small-btn">Live Demo</a>
+                            <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>your.email@example.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Your City, Country</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <div>
+                            <h3>LinkedIn</h3>
+                            <p><a href="https://linkedin.com/in/your-linkedin" target="_blank">linkedin.com/in/your-profile</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <div>
+                            <h3>GitHub</h3>
+                            <p><a href="https://github.com/mrinmoy2developer" target="_blank">github.com/mrinmoy2developer</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2023 Mrinmoy Banik. All Rights Reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/mrinmoy2developer" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/your-linkedin" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html> 

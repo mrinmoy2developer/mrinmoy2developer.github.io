@@ -1,45 +1,41 @@
-# Snake Game
+# Mrinmoy Banik - Portfolio
 
-A classic Snake Game built with HTML, CSS, and JavaScript for deployment on GitHub Pages.
+Welcome to my personal portfolio website! This site showcases my skills, projects, and experience as a software developer.
 
-## Play the Game
+## About Me
 
-You can play the game by visiting: https://mrinmoy2developer.github.io
+I am a passionate software developer with experience in both frontend and backend technologies. I enjoy creating responsive, user-friendly applications that deliver exceptional experiences.
 
-## How to Play
+## Projects
 
-- Use the arrow keys (↑, ↓, ←, →) on your keyboard to control the snake.
-- On mobile devices, you can use the on-screen arrow buttons or swipe gestures.
-- Eat the red food to grow the snake and score points.
-- Avoid hitting the walls or the snake's own body.
-- Try to achieve the highest score possible!
+### Snake Game
 
-## Features
-
+A classic Snake Game built with HTML, CSS, and JavaScript. Features include:
+- Customizable colors for snake, food, and game board
 - Responsive design for both desktop and mobile play
 - Touch/swipe controls for mobile devices
 - Score tracking and high score saved in local storage
-- Smooth gameplay with customizable speed
 
-## Deployment
+[Play the Snake Game](https://mrinmoy2developer.github.io/projects/snake-game/)
 
-This game is designed to be deployed on GitHub Pages. To deploy:
+### More Projects Coming Soon!
 
-1. Push the code to your GitHub repository (named `username.github.io` or set up with GitHub Pages)
-2. Go to your repository settings
-3. Navigate to the "Pages" section
-4. Select the branch you want to deploy (usually `main` or `master`)
-5. After a few minutes, your game will be live at `https://username.github.io`
+I'm constantly working on new projects. Check back soon to see what I'm building next.
 
-## Development
+## Skills
 
-If you want to develop the game further:
+- **Frontend**: HTML5, CSS3, JavaScript, React
+- **Backend**: Node.js, Python, SQL, APIs
+- **Tools**: Git, Docker, AWS, Responsive Design
 
-1. Clone this repository
-2. Make your changes to the HTML, CSS, or JavaScript files
-3. Test locally by opening `index.html` in a browser
-4. Push changes to GitHub to update the live version
+## Contact
+
+Feel free to reach out to me through the contact form on my website or via the following channels:
+
+- GitHub: [mrinmoy2developer](https://github.com/mrinmoy2developer)
+- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/your-linkedin)
+- Email: your.email@example.com
 
 ## License
 
-Feel free to use, modify, and distribute this code as you wish!
+This project is open source and available under the [MIT License](LICENSE).
