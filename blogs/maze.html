@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hijacking a Shared Library — OverTheWire Maze</title>
+    <meta name="description" content="A writeup on the OverTheWire Maze wargame: overriding a libc symbol to redirect a setuid binary's behaviour.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../blog.css">
+</head>
+<body>
+    <nav class="blog-nav">
+        <div class="inner">
+            <a href="../index.html#blogs" class="back-link"><i class="fas fa-arrow-left"></i> Back to portfolio</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+
+    <article>
+        <div class="post-meta">
+            <span class="post-tag">OverTheWire</span>
+            <span class="post-sub">Reverse Engineering · Dynamic Linking</span>
+        </div>
+        <h1>Hijacking a Shared Library: OverTheWire Maze</h1>
+        <p class="lede">Where Utumno was about the stack, the Maze levels are about the <em>dynamic linker</em>. The trick that unlocked several of them: a setuid binary calls an ordinary libc function like <code>puts</code>, and I get to decide which <code>puts</code> it actually runs. Override the symbol, and the program does my bidding with its elevated privileges.</p>
+
+        <div class="callout">
+            <strong>Note:</strong> Educational writeup of a public OverTheWire wargame in a sandboxed VM. No real system is targeted and no passwords are shown.
+        </div>
+
+        <h2>The observation</h2>
+        <p>The vulnerable program is setuid to the next level's user and, somewhere in its flow, calls a common libc function — here <code>puts</code>. Symbol resolution for that call goes through the dynamic linker, which means if I can get <em>my</em> definition of <code>puts</code> loaded ahead of the real one, my code runs inside the privileged process. That's the whole game: not smashing memory, just answering "which function is <code>puts</code>?" with a function of my own.</p>
+
+        <h2>The payload: a malicious <code>puts</code></h2>
+        <p>My replacement keeps the same signature so the linker is happy to bind to it — but instead of printing its argument, it opens the password file that only the elevated user can read, and prints <em>that</em>:</p>
+        <pre><code>#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+int puts(const char *s) {
+    FILE *fp;
+    fp = fopen("/etc/maze_pass/maze2", "r");   // readable only as the target user
+    char pass[11] = {0};
+    fread(pass, sizeof(char), 10, fp);
+    printf("%s", pass);
+    return 10;
+}</code></pre>
+        <p>Because the binary runs with the target user's privileges, the <code>fopen</code> succeeds even though my own shell can't read that file. When the program calls <code>puts(...)</code>, control lands in my function, it reads the protected file, and prints the password to stdout. The overridden call effectively becomes "leak the next credential."</p>
+
+        <h2>Why the override binds</h2>
+        <p>The dynamic linker resolves each imported symbol the first time it's used, walking the loaded objects in a defined order. By getting my object loaded early — ahead of libc in that search order — my <code>puts</code> is the first match, so every <code>puts</code> call in the target resolves to mine. The real libc <code>puts</code> is never consulted. Same name, same signature, completely different behaviour, and it all happens before <code>main</code> even reaches the call.</p>
+        <p>The elegant part is how little there is to it. There's no shellcode, no offset to measure, no ASLR to defeat — just an understanding that a symbol name is a promise the linker keeps to whichever object gets there first. Control the search order and you control the function.</p>
+
+        <h2>Chaining it</h2>
+        <p>Each level hands you the password to the next, so the same override — repointed at the appropriate <code>/etc/maze_pass/mazeN</code> file — carries you up the ladder. The mechanics stay identical; only the target path changes. That repetition is the point: once the linker-hijack idea clicks, the level stops being a puzzle and becomes a template.</p>
+
+        <h2>Takeaways</h2>
+        <p>Two lessons stuck with me:</p>
+        <ul>
+            <li><strong>Trust boundaries live in surprising places.</strong> A setuid program that calls any external function is implicitly trusting the resolution of that function. If an attacker influences the loader's search, the "trusted" call is anything but.</li>
+            <li><strong>Function identity is not the function.</strong> A call to <code>puts</code> is a call to <em>whatever the linker decided <code>puts</code> means here</em>. Reasoning about a program purely from its source misses this — the runtime linking step is part of the program's behaviour.</li>
+        </ul>
+        <p>Coming off Utumno's byte-level shellcode work, Maze was a nice change of altitude: same goal (run my code with more privilege), a completely different mechanism (linking, not overflow). Together they're a good pair for building intuition about the two big surfaces of a native process — its stack and its symbol table.</p>
+
+        <div class="disclaimer">
+            OverTheWire is a legal, free security-training platform. This documents a technique on an intentionally vulnerable practice binary in an isolated VM — not guidance against any real system.
+        </div>
+
+        <div class="post-footer">
+            <a href="utumno.html"><i class="fas fa-arrow-left"></i> Prev: OverTheWire Utumno</a>
+            <a href="cantcrack.html">Next: CantCrack keygen <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </article>
+
+    <script src="../blog.js"></script>
+</body>
+</html>

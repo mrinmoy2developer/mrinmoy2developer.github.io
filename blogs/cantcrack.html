@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reversing a Keygen Check — CantCrack.exe</title>
+    <meta name="description" content="A short crackme writeup: following xrefs in IDA to the compare routine and recovering a valid key from three XOR'd segments.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../blog.css">
+</head>
+<body>
+    <nav class="blog-nav">
+        <div class="inner">
+            <a href="../index.html#blogs" class="back-link"><i class="fas fa-arrow-left"></i> Back to portfolio</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+
+    <article>
+        <div class="post-meta">
+            <span class="post-tag">Crackme</span>
+            <span class="post-sub">Reverse Engineering · Keygen</span>
+        </div>
+        <h1>Reversing a Keygen Check: CantCrack.exe</h1>
+        <p class="lede">A short, satisfying crackme. The name is a dare; the check turns out to be a fixed-format string split into three chunks, each XOR'd against a different key. Here's the walk from "no idea" to a valid key, recovered entirely by hand.</p>
+
+        <div class="callout">
+            <strong>Note:</strong> A crackme is a program written specifically to be reverse-engineered for practice. This is my writeup of solving one.
+        </div>
+
+        <h2>Start with strings</h2>
+        <p>Loaded it in IDA and checked strings first — almost always the fastest way in. The success and failure messages were both sitting right there in the binary, which gives you an anchor: find where the "congratulations" string is used and you're standing next to the logic that decides you won.</p>
+        <p>Following the cross-reference from that string landed straight in <code>main</code>. Decompiled, it's refreshingly direct:</p>
+        <ul>
+            <li>copies a hardcoded string <code>"YYXVRsqswKSP"</code> into a buffer,</li>
+            <li>reads your input,</li>
+            <li>calls a compare function,</li>
+            <li>prints win or lose based on the result.</li>
+        </ul>
+        <p>All the interesting logic is in that compare function.</p>
+
+        <h2>The format check</h2>
+        <p>The comparison routine first validates the <em>shape</em> of the input before it looks at any content:</p>
+        <ul>
+            <li>input must be 14 characters,</li>
+            <li>position 5 must be <code>-</code>,</li>
+            <li>position 10 must be <code>-</code>.</li>
+        </ul>
+        <p>So the key has the form <code>XXXXX-XXXX-XXX</code>. That neatly splits the hardcoded string into three segments, and each is checked against your input after being XOR'd with its own key byte.</p>
+
+        <h2>Undoing the XOR</h2>
+        <p><strong>Segment 1 (first 5 chars)</strong> — take <code>"YYXVR"</code> XOR <code>0x37</code>:</p>
+        <pre><code>Y ^ 0x37 = n
+Y ^ 0x37 = n
+X ^ 0x37 = o
+V ^ 0x37 = a
+R ^ 0x37 = e      ->  "nnoae"</code></pre>
+        <p><strong>Segment 2 (next 4 chars, between the dashes)</strong> — <code>"sqsw"</code> XOR <code>0x41</code>:</p>
+        <pre><code>s ^ 0x41 = 2
+q ^ 0x41 = 0
+s ^ 0x41 = 2
+w ^ 0x41 = 6      ->  "2026"</code></pre>
+        <p><strong>Segment 3 (last 3 chars)</strong> — <code>"KSP"</code> XOR <code>0x23</code>:</p>
+        <pre><code>K ^ 0x23 = h
+S ^ 0x23 = p
+P ^ 0x23 = s      ->  "hps"</code></pre>
+
+        <h2>The key</h2>
+        <p>Stitch the three decoded segments back together with the required dashes:</p>
+        <pre><code>nnoae-2026-hps</code></pre>
+        <p>Ran the binary with that as input and it printed the success message. Done.</p>
+
+        <h2>Takeaways</h2>
+        <p>The general shape here is extremely common in crackmes: a fixed transform applied to a known constant, compared against user input. Once you see it's XOR against a constant, the check is <em>symmetric</em> — the same operation that hides the answer reveals it. The only real work is reading the disassembly carefully enough to pull out the three keys and the segment boundaries. Strings → xref → decompile → invert the transform is a workflow that cracks a surprising fraction of these on the first sitting.</p>
+
+        <div class="post-footer">
+            <a href="maze.html"><i class="fas fa-arrow-left"></i> Prev: OverTheWire Maze</a>
+            <a href="../index.html#blogs">All writeups</a>
+        </div>
+    </article>
+
+    <script src="../blog.js"></script>
+</body>
+</html>

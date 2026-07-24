@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mrinmoy Banik - Portfolio</title>
+    <meta name="description" content="Mrinmoy Banik — Quant Developer & Statistician. HFT systems, low-latency C++, statistical research, and side projects.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,14 +20,21 @@
                 <ul class="nav-links">
                     <li><a href="#home" class="active">Home</a></li>
                     <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#projects">Projects</a></li>
+                    <li><a href="#blogs">Blogs</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle light/dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -37,16 +45,16 @@
         <div class="container">
             <div class="hero-content">
                 <h1>Hi, I'm <span class="highlight">Mrinmoy Banik</span></h1>
-                <h2>ML Enthusiast | Statistician | Student Researcher</h2>
-                <p>I build exceptional digital experiences with a focus on performance, statistical analysis, and machine learning.</p>
+                <h2>Quant Developer | Statistician | HFT Systems</h2>
+                <p>I build low-latency C++ trading systems and work across the full systematic-trading stack — signal research, backtesting, execution, and real-time monitoring — with a statistician's eye for data.</p>
                 <div class="cta-buttons">
                     <a href="#projects" class="btn primary-btn">View My Work</a>
                     <a href="#contact" class="btn secondary-btn">Contact Me</a>
                 </div>
                 <div class="social-links">
-                    <a href="https://github.com/mrinmoy2developer" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://linkedin.com/in/mrinmoy-banik-6b754b1b9" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="mailto:rinmoybanik12@gmail.com"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/mrinmoy2developer" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/mrinmoy-banik-6b754b1b9" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:rinmoybanik12@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
             <div class="hero-image">
@@ -66,25 +74,69 @@
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p>I am a passionate statistician and ML enthusiast with a strong foundation in statistical analysis, machine learning, and programming. My journey in technology began with a curiosity about how data-driven solutions can solve real-world problems.</p>
-                    <p>With experience in both statistical modeling and machine learning, I enjoy creating innovative solutions that deliver exceptional results. I'm constantly learning and adapting to new technologies to stay at the forefront of the industry.</p>
-                    <p>When I'm not coding or analyzing data, you can find me exploring new technologies, contributing to research projects, or sharing my knowledge with the community.</p>
+                    <p>I'm a quant developer and statistician (M.Stat, Indian Statistical Institute) with production HFT experience building low-latency C++ trading systems. I'm comfortable across the full systematic-trading stack — from microstructure signal research and tick-level backtesting to execution and real-time monitoring.</p>
+                    <p>Outside of trading, I like building things from scratch: browser games, VS Code extensions, offline file-transfer protocols, and native handheld console apps. I'm also into competitive programming, reverse engineering, and the occasional wargame.</p>
+                    <p>I'm constantly learning and enjoy the craft of turning hard, low-level problems into clean, working systems.</p>
                     <div class="resume-link">
-                        <a href="resume.pdf" class="btn primary-btn" target="_blank">Download Resume</a>
+                        <a href="M_Stat_CV__Analyst_.pdf" class="btn primary-btn" target="_blank">Download Resume</a>
                     </div>
                 </div>
                 <div class="about-details">
                     <div class="detail-item">
                         <h3>Education</h3>
                         <p><strong>M.Stat (Master of Statistics)</strong></p>
-                        <p>Indian Statistical Institute, 2023-2025</p>
-                        <p><strong>B.Stat (Bachelor of Statistics Hons.)</strong></p>
-                        <p>Indian Statistical Institute, 2020-2023</p>
+                        <p>Indian Statistical Institute, 2023–2025</p>
+                        <p><strong>B.Stat (Bachelor of Statistics, Hons.)</strong></p>
+                        <p>Indian Statistical Institute, 2020–2023</p>
                     </div>
                     <div class="detail-item">
-                        <h3>Experience</h3>
-                        <p><strong>JPMorgan & Chase Summer Internship</strong></p>
-                        <p>MRGR CCB, May 2024-July 2024</p>
+                        <h3>Achievements</h3>
+                        <p>Codeforces Expert (max 1684) · CodeChef Master (max 2018)</p>
+                        <p>Global Rank 1, CodeChef May Long Challenge 2021</p>
+                        <p>Rank 25, Datathon @ IndoML 2022 · JEE Advanced AIR 4575</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2>Experience</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-head">
+                            <h3>HFT Quant Developer</h3>
+                            <span class="timeline-date">Jun 2025 – Apr 2026</span>
+                        </div>
+                        <p class="timeline-company">Singhal Financial Technologies (SFintech) · NSE Futures Strategy · Gandhinagar, Gujarat</p>
+                        <ul>
+                            <li>Designed and implemented low-latency trading strategies for NSE index and stock futures, targeting microstructure-driven alpha.</li>
+                            <li>Built and maintained strategies entirely in C++ on in-house tooling optimised for sub-microsecond GTC cancel latency.</li>
+                            <li>Engineered a shallow order-book architecture that reduced reliance on deep market-data levels, improving robustness under feed irregularities and cutting bad-book risk.</li>
+                            <li>Backtested and forward-simulated on tick-level data with explicit slippage, transaction-cost, and market-impact modelling.</li>
+                            <li>Built real-time monitoring dashboards (Telegraf, Grafana, InfluxDB) with team-specific alerting; implemented position limits, exposure checks, and automated kill-switches with traders and risk.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-head">
+                            <h3>Summer Analyst</h3>
+                            <span class="timeline-date">May 2024 – Jul 2024</span>
+                        </div>
+                        <p class="timeline-company">JPMorgan Chase &amp; Co. · Model Risk Governance &amp; Review (MRGR), Consumer &amp; Community Banking · Mumbai</p>
+                        <ul>
+                            <li>Independently tested a tier-3 DistilBERT complaint classifier (out-of-time validation, data-quality checks, SHAP / Integrated Gradients).</li>
+                            <li>Ran ongoing monitoring of an XGBoost fraud model and supported retiring a liquidity model.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -103,62 +155,62 @@
                     <h3>Programming</h3>
                     <div class="skills-grid">
                         <div class="skill-item">
+                            <i class="fas fa-code"></i>
+                            <p>C/C++20</p>
+                        </div>
+                        <div class="skill-item">
                             <i class="fab fa-python"></i>
                             <p>Python</p>
                         </div>
                         <div class="skill-item">
-                            <i class="fas fa-code"></i>
-                            <p>C/C++</p>
+                            <i class="fab fa-rust"></i>
+                            <p>Rust</p>
                         </div>
                         <div class="skill-item">
                             <i class="fas fa-chart-line"></i>
                             <p>R</p>
                         </div>
-                        <div class="skill-item">
-                            <i class="fab fa-js"></i>
-                            <p>JavaScript</p>
-                        </div>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>AI & ML</h3>
+                    <h3>Quant &amp; ML</h3>
                     <div class="skills-grid">
+                        <div class="skill-item">
+                            <i class="fas fa-arrow-trend-up"></i>
+                            <p>Backtesting</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-layer-group"></i>
+                            <p>Microstructure</p>
+                        </div>
                         <div class="skill-item">
                             <i class="fas fa-brain"></i>
-                            <p>Deep Learning</p>
+                            <p>PyTorch</p>
                         </div>
                         <div class="skill-item">
-                            <i class="fas fa-comment-alt"></i>
-                            <p>NLP</p>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-cogs"></i>
-                            <p>PyTorch/TensorFlow</p>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-robot"></i>
-                            <p>HuggingFace</p>
+                            <i class="fas fa-diagram-project"></i>
+                            <p>XGBoost / SHAP</p>
                         </div>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>Tools & Others</h3>
+                    <h3>Infra &amp; Tools</h3>
                     <div class="skills-grid">
                         <div class="skill-item">
-                            <i class="fab fa-git-alt"></i>
-                            <p>Git</p>
+                            <i class="fas fa-gauge-high"></i>
+                            <p>Grafana</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-database"></i>
+                            <p>SQL / Timescale</p>
                         </div>
                         <div class="skill-item">
                             <i class="fab fa-docker"></i>
                             <p>Docker</p>
                         </div>
                         <div class="skill-item">
-                            <i class="fas fa-database"></i>
-                            <p>SQL</p>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-microchip"></i>
-                            <p>Arduino/Raspberry Pi</p>
+                            <i class="fab fa-git-alt"></i>
+                            <p>Git / Linux</p>
                         </div>
                     </div>
                 </div>
@@ -174,62 +226,202 @@
                 <div class="underline"></div>
             </div>
             <div class="projects-grid">
+
                 <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/600x400" alt="Snake Game">
-                    </div>
+                    <div class="project-icon"><i class="fas fa-volume-high"></i></div>
                     <div class="project-content">
-                        <h3>Snake Game</h3>
-                        <p>A classic Snake Game built with HTML, CSS, and JavaScript. Features include customizable colors, responsive design, and touch controls.</p>
+                        <h3>Babble</h3>
+                        <p>An online multiplayer browser game in the spirit of skribbl.io — but the medium is <em>sound</em>, not drawing. Hear a word, spell what you heard, and the server scores every guess in language-neutral phoneme space. Server-side neural TTS, 19 word packs, live waveform comparison.</p>
                         <div class="project-tags">
-                            <span>HTML</span>
-                            <span>CSS</span>
                             <span>JavaScript</span>
+                            <span>Node.js</span>
+                            <span>Socket.IO</span>
+                            <span>Web Audio</span>
                         </div>
                         <div class="project-links">
-                            <a href="projects/snake-game/" class="btn small-btn">Live Demo</a>
-                            <a href="https://github.com/mrinmoy2developer/mrinmoy2developer.github.io/tree/main/projects/snake-game" class="btn small-btn secondary-btn">GitHub</a>
+                            <a href="https://babble.hebdo.duckdns.org" target="_blank" class="btn small-btn">Live Demo</a>
+                            <a href="https://github.com/mrinmoy2developer/babble" target="_blank" class="btn small-btn secondary-btn">GitHub</a>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/600x400" alt="Multivariate Tests">
+                    <div class="project-icon"><i class="fas fa-qrcode"></i></div>
+                    <div class="project-content">
+                        <h3>QR-Stream</h3>
+                        <p>A one-way optical file-transfer protocol: stream arbitrary binary data from a Retina display to a phone camera — no networking, Bluetooth, or reverse channel. Built on a rateless LT fountain code, layered Reed–Solomon FEC, and a calibrated physical layer. Pure C++23 encoder, byte-identical recovery.</p>
+                        <div class="project-tags">
+                            <span>C++23</span>
+                            <span>Fountain Codes</span>
+                            <span>Reed–Solomon</span>
+                            <span>Metal</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mrinmoy2developer/qr-stream" target="_blank" class="btn small-btn">GitHub</a>
+                        </div>
                     </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-file-zipper"></i></div>
+                    <div class="project-content">
+                        <h3>ZST Viewer — VS Code Extension</h3>
+                        <p>Open <code>.zst</code> compressed files directly in VS Code, no terminal needed. A streaming page-by-page viewer with flat memory usage on multi-GB files, Rainbow-CSV / JSON highlighting, full-file search, go-to-line/page, and an in-place edit-and-recompress mode.</p>
+                        <div class="project-tags">
+                            <span>TypeScript</span>
+                            <span>VS Code API</span>
+                            <span>zstd</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mrinmoy2developer/VS-code-ZST-viewer" target="_blank" class="btn small-btn">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-gamepad"></i></div>
+                    <div class="project-content">
+                        <h3>R36 Ultra Native Games</h3>
+                        <p>A collection of native games and apps for the R36 Ultra handheld console (ArkOS 4.4), built from scratch in C++ with SDL2 — Snake, Pong, Wordle, Sudoku, mazes, sliding puzzles, water sort, plus utilities like a calculator, terminal, video player, and gamepad mapper.</p>
+                        <div class="project-tags">
+                            <span>C++17</span>
+                            <span>SDL2</span>
+                            <span>ArkOS</span>
+                            <span>ARM Linux</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mrinmoy2developer/native-r36-ultra-apps" target="_blank" class="btn small-btn">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-diagram-project"></i></div>
+                    <div class="project-content">
+                        <h3>Maze Game Solver — Chrome Extension</h3>
+                        <p>A Chrome extension paired with a Flask backend that auto-solves an online maze game. The backend tracks game state and drives carefully engineered API calls to the game server to reconstruct and complete the maze automatically.</p>
+                        <div class="project-tags">
+                            <span>JavaScript</span>
+                            <span>Chrome Extension</span>
+                            <span>Flask</span>
+                            <span>Python</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mrinmoy2developer/Maze_Game_Solver" target="_blank" class="btn small-btn">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-arrow-trend-up"></i></div>
+                    <div class="project-content">
+                        <h3>IMC Prosperity 4 Toolkit</h3>
+                        <p>An algorithmic-trading toolkit for the IMC Prosperity competition: an event-driven Python backtester, a faster Rust port, and an interactive dashboard for PnL and position analysis on the strategies.</p>
+                        <div class="project-tags">
+                            <span>Python</span>
+                            <span>Rust</span>
+                            <span>JavaScript</span>
+                            <span>Backtesting</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mrinmoy2developer/IMC-Prosperity4-Dashboard" target="_blank" class="btn small-btn">Dashboard</a>
+                            <a href="https://github.com/mrinmoy2developer/IMC-Prosperity4-Backtester" target="_blank" class="btn small-btn secondary-btn">Backtester</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-box-archive"></i></div>
+                    <div class="project-content">
+                        <h3>Rack</h3>
+                        <p>A git-like local data-storage utility for managing large numbers of log files in compressed form, with easy retrieval — built to keep tick-level and experiment logs organised and space-efficient.</p>
+                        <div class="project-tags">
+                            <span>Python</span>
+                            <span>Compression</span>
+                            <span>CLI</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mrinmoy2developer/Rack" target="_blank" class="btn small-btn">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-share-nodes"></i></div>
+                    <div class="project-content">
+                        <h3>File-Tunnel</h3>
+                        <p>A wireless small-file-transfer wrapper that shares files and generates short, memorable links for them that stay live for a few hours — friction-free sharing without accounts or apps.</p>
+                        <div class="project-tags">
+                            <span>HTML</span>
+                            <span>JavaScript</span>
+                            <span>File Sharing</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mrinmoy2developer/file-tunnel" target="_blank" class="btn small-btn">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-square-root-variable"></i></div>
                     <div class="project-content">
                         <h3>Multivariate Non-Parametric Tests</h3>
-                        <p>Research on multivariate generalizations of Wald-Wolfowitz and Smirnov two-sample tests, with implementations in R and Python.</p>
+                        <p>Research on multivariate generalisations of the Wald–Wolfowitz and Smirnov two-sample tests via minimum spanning trees and shortest Hamiltonian paths, with parallelised computation and an interactive Plotly/Dash dashboard.</p>
                         <div class="project-tags">
                             <span>R</span>
                             <span>Python</span>
                             <span>Statistics</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://multivariate-tests.onrender.com/" class="btn small-btn">Live Demo</a>
-                            <a href="https://github.com/mrinmoy2developer" class="btn small-btn secondary-btn">GitHub</a>
+                            <a href="https://github.com/mrinmoy2developer/Multivariate-Non-Parametric-Tests" target="_blank" class="btn small-btn">GitHub</a>
                         </div>
                     </div>
                 </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/600x400" alt="TITAN Project">
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Blogs Section -->
+    <section id="blogs" class="blogs">
+        <div class="container">
+            <div class="section-header">
+                <h2>Blogs</h2>
+                <div class="underline"></div>
+            </div>
+            <p class="blogs-intro">Notes from the reverse-engineering rabbit hole — writeups from the OverTheWire wargames and other low-level puzzles I've been chipping away at.</p>
+            <div class="blogs-grid">
+
+                <article class="blog-card">
+                    <div class="blog-meta">
+                        <span class="blog-tag">OverTheWire</span>
+                        <span class="blog-date">Reverse Engineering</span>
                     </div>
-                    <div class="project-content">
-                        <h3>TITAN - Large Scale Visual Object Discovery</h3>
-                        <p>A large-scale synthetic object detection dataset with 339K+ unique objects, using Stable Diffusion and DAAM attention heat-maps.</p>
-                        <div class="project-tags">
-                            <span>Python</span>
-                            <span>Deep Learning</span>
-                            <span>Computer Vision</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn small-btn">Project Info</a>
-                            <a href="#" class="btn small-btn secondary-btn">GitHub</a>
-                        </div>
+                    <h3><a href="blogs/utumno.html">Injecting Shellcode Through a Launcher: OverTheWire Utumno</a></h3>
+                    <p>Walking through Utumno level by level — mapping the stack and environment layout with a homemade <code>child</code> probe, then hand-writing a NOP-sled + shellcode payload and smuggling it in through <code>execve</code>'s environment to overwrite a saved return address.</p>
+                    <a href="blogs/utumno.html" class="blog-read">Read writeup <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-meta">
+                        <span class="blog-tag">OverTheWire</span>
+                        <span class="blog-date">Reverse Engineering</span>
                     </div>
-                </div>
+                    <h3><a href="blogs/maze.html">Hijacking a Shared Library: OverTheWire Maze</a></h3>
+                    <p>The Maze levels turn on library search order and symbol resolution. I override <code>puts</code> with my own version that quietly reads the next level's password file — a clean, self-contained look at how the dynamic linker can be turned against a setuid binary.</p>
+                    <a href="blogs/maze.html" class="blog-read">Read writeup <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-meta">
+                        <span class="blog-tag">Crackme</span>
+                        <span class="blog-date">Reverse Engineering</span>
+                    </div>
+                    <h3><a href="blogs/cantcrack.html">Reversing a Keygen Check: CantCrack.exe</a></h3>
+                    <p>A short crackme writeup — following an xref from the success string in IDA to the compare routine, then untangling the XXXXX-XXXX-XXX format check and the three per-segment XOR keys to recover a valid key by hand.</p>
+                    <a href="blogs/cantcrack.html" class="blog-read">Read writeup <i class="fas fa-arrow-right"></i></a>
+                </article>
+
             </div>
         </div>
     </section>
@@ -254,14 +446,14 @@
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <h3>Location</h3>
-                            <p>Kolkata, West Bengal, India</p>
+                            <p>West Bengal, India</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-linkedin"></i>
                         <div>
                             <h3>LinkedIn</h3>
-                            <p><a href="https://linkedin.com/in/mrinmoy-banik-6b754b1b9" target="_blank">linkedin.com/in/mrinmoy-banik-6b754b1b9</a></p>
+                            <p><a href="https://linkedin.com/in/mrinmoy-banik-6b754b1b9" target="_blank">mrinmoy-banik</a></p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -297,16 +489,16 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2023 Mrinmoy Banik. All Rights Reserved.</p>
+                <p>&copy; 2026 Mrinmoy Banik. All Rights Reserved.</p>
                 <div class="social-links">
-                    <a href="https://github.com/mrinmoy2developer" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://linkedin.com/in/mrinmoy-banik-6b754b1b9" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="mailto:rinmoybanik12@gmail.com"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/mrinmoy2developer" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/mrinmoy-banik-6b754b1b9" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:rinmoybanik12@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="main.js"></script>
 </body>
-</html> 
+</html>
